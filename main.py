@@ -4,6 +4,7 @@ import datetime
 from subprocess import call
 from tkinter import *
 from tkinter import filedialog
+from tkinter import ttk
 
 notDuplicates = []
 viableDates = []
@@ -41,8 +42,14 @@ soundCheck.pack(side=BOTTOM)
 jpegCheck.pack(side=BOTTOM)
 rawCheck.pack(side=BOTTOM)
 
-progress = Label(progressBar)
+#progress = Label(progressBar)
+# progress.pack(side=BOTTOM)
+
+progress = ttk.Progressbar(None, orient="horizontal",
+                           length=200, mode="determinate")
 progress.pack(side=BOTTOM)
+
+progress["value"] = 0
 
 subDir = ""
 
@@ -125,6 +132,8 @@ def transfer():
     handleCheckBoxes()
     findTotalElements()
 
+    progress["maximum"] = totalNumberElements
+
     for file in os.listdir(fromDir):
         currentFileExtension = str(file)[-4:]
         if checkFileExtension(currentFileExtension):
@@ -182,8 +191,10 @@ def transfer():
 
 
 def updatep_rogress():
-    progress.config(text="Files copied: "+str(numberCopied) +
-                    " / "+str(totalNumberElements))
+    # progress.config(text="Files copied: "+str(numberCopied) +
+                    # " / "+str(totalNumberElements))
+
+    progress["value"] = numberCopied
 
 
 browsebutton = Button(root, text="Choose from directory", command=getFromDir)
