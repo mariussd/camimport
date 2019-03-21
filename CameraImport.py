@@ -7,13 +7,26 @@ from tkinter import *
 from tkinter import filedialog
 from tkinter import ttk
 
-
-class CameraImport(tk.Tk):
-
-    def __init__(self, screenName=None, baseName=None, className="CamImport", useTk=1, sync=0, use=None):
-        super().__init__(screenName=screenName, baseName=baseName,
-                         className=className, useTk=useTk, sync=sync, use=use)
+CANON_RAW_FE = ".CR2"
+JPEG_FE = ".JPG"
+MP4_FE = ".MP4"
+MOV_FE = ".MOV"
 
 
-app = CameraImport()
-app.mainloop()
+class CameraImport(tk.Frame):
+
+    def __init__(self, parent, *args, **kwargs):
+        tk.Frame.__init__(self, parent, *args, **kwargs)
+
+        self.parent = parent
+        self.notDuplicates = []
+        self.viableDates = []
+        self.checklist = []
+
+        print("INITIATED, YEYUH")
+
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    CameraImport(root).pack(side="top", fill="both", expand=True)
+    root.mainloop()
